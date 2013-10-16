@@ -7,6 +7,13 @@
 #import "TiUIWebView+ISRefreshControl.h"
 #import <objc/runtime.h>
 
+@interface TiUIWebView ()
+
+-(UIScrollView*)scrollview;
+@end
+
+
+
 @implementation TiUIWebView (TiUIWebView_ISRefreshControl)
 
 -(void)setRefreshControl:(ISRefreshControl *)refreshControl
@@ -25,7 +32,7 @@
     
     if (self)
     {
-        self.refreshControl = (id)[[ISRefreshControl alloc] init];
+        self.refreshControl = [(id)[[ISRefreshControl alloc] init] autorelease];
         [self.refreshControl addTarget:self
                                 action:@selector(refreshStart)
                       forControlEvents:UIControlEventValueChanged];
@@ -43,7 +50,7 @@
     
     if (val != nil)
     {
-        self.refreshControl.tintColor = [[val _color] retain];
+        self.refreshControl.tintColor = [val _color];
     }
 }
 
